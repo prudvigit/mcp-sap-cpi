@@ -1,25 +1,22 @@
 import axios, { AxiosInstance } from 'axios';
-import { getAccessToken } from './auth.js';
-
-let _client: AxiosInstance | null = null;
+import { getAuthHeaders } from './auth.js';
 
 export async function getCpiClient(): Promise<AxiosInstance> {
-  const token = await getAccessToken();
   const baseURL = process.env.CPI_TENANT_URL;
 
   if (!baseURL) {
     throw new Error('Missing CPI_TENANT_URL in .env');
   }
 
-  _client = axios.create({
+  const authHeaders = await getAuthHeaders();
+
+  return axios.create({
     baseURL: `${baseURL}/api/v1`,
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...authHeaders,
       Accept: 'application/json',
     },
   });
-
-  return _client;
 }
 
 export function formatCpiError(error: unknown): string {

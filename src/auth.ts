@@ -7,7 +7,28 @@ interface TokenCache {
 
 let tokenCache: TokenCache | null = null;
 
-export async function getAccessToken(): Promise<string> {
+export type AuthMode = 'oauth' | 'basic';
+
+export function getAuthMode(): AuthMode {
+  if (process.env.CPI_USERNAME && process.env.CPI_PASSWORD) return 'basic';
+  return 'oauth';
+}
+
+export async function getAuthHeaders(): Promise<Record<string, string>> {
+  const mode = getAuthMode();
+
+  if (mode === 'basic') {
+    const { CPI_USERNAME, CPI_PASSWORD } = process.env;
+    const encoded = Buffer.from(`${CPI_USERNAME}:${CPI_PASSWORD}`).toString('base64');
+    return { Authorization: `Basic ${encoded}` };
+  }
+
+  // OAuth2 client credentials
+  const token = await getAccessToken();
+  return { Authorization: `Bearer ${token}` };
+}
+
+async function getAccessToken(): Promise<string> {
   const now = Date.now();
 
   if (tokenCache && tokenCache.expiresAt > now + 60000) {
