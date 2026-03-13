@@ -1,0 +1,27 @@
+{
+  "name": "mcp-sap-cpi",
+  "version": "0.1.0",
+  "description": "MCP server for SAP Cloud Platform Integration (CPI) — connect Claude to your CPI tenant",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-sap-cpi": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["mcp", "sap", "cpi", "cloud-integration", "integration-suite", "claude"],
+  "author": "Prudvi Tarigonda",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}

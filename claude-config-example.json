@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "sap-cpi": {
+      "command": "node",
+      "args": ["C:/Users/Prudvi/mcp-sap-cpi/dist/index.js"],
+      "env": {
+        "CPI_TENANT_URL": "https://<tenant>.it-cpi.cfapps.<region>.hana.ondemand.com",
+        "CPI_TOKEN_URL": "https://<subdomain>.authentication.<region>.hana.ondemand.com/oauth/token",
+        "CPI_CLIENT_ID": "your-client-id",
+        "CPI_CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
